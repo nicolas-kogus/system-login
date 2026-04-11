@@ -65,4 +65,24 @@ public class Users {
             System.out.println("Error: " + e.getMessage());
         }
     }
+
+    public Boolean usernameValidate(String username) {
+        String filePath = "/home/nicolas-kogus/IdeaProjects/system-login/src/usernames.txt";
+
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))){
+            String line;
+
+            while ((line = bufferedReader.readLine()) != null) {
+                if (username.equals(line)) {
+                    return true;
+                }
+            }
+        }
+
+        catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+
+        return false;
+    }
 }
