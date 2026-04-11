@@ -4,7 +4,6 @@ import model.Exceptions.PasswordVeryLong;
 import model.Exceptions.UsernameUnavailable;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.NoSuchElementException;
@@ -13,6 +12,11 @@ import java.util.Scanner;
 public class Users {
     private String username;
     private String password;
+
+    public Users(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public Users() {}
 
@@ -24,14 +28,9 @@ public class Users {
         return password;
     }
 
-    public void setUsername() {
-        Scanner input = new Scanner(System.in);
-        String line;
-
-        System.out.println();
-        System.out.print("Username: ");
-        String username = input.nextLine();
+    public void setUsername(String username) {
         String usernameFile = "/home/nicolas-kogus/IdeaProjects/system-login/src/usernames.txt";
+        String line;
 
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(usernameFile, true));
@@ -62,15 +61,10 @@ public class Users {
         }
     }
 
-    public void setPassword() {
-        String password;
+    public void setPassword(String password) {
         String stringHash = "";
 
-        try (Scanner input = new Scanner(System.in)) {
-
-            System.out.print("Password: ");
-            password = input.next();
-
+        try {
             if (password.length() > 15) {
                 throw new PasswordVeryLong("Error: The password must be a maximum of 15 characters long.");
             }
